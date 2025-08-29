@@ -12,7 +12,8 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
+        $todos = Todo::all();
+        return response()->json($todos);
     }
 
     /**
@@ -20,7 +21,7 @@ class TodoController extends Controller
      */
     public function create()
     {
-        //
+        //no need, react native will handle in ui forms
     }
 
     /**
@@ -28,7 +29,8 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $todo = Todo::create($request->only(['title', 'description', 'is_done']));
+        return response()->json($todo, 201);
     }
 
     /**
@@ -36,7 +38,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        return response()->json($todo);
     }
 
     /**
@@ -44,7 +46,7 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        //
+        //no need, react native will handle in ui forms
     }
 
     /**
@@ -52,7 +54,8 @@ class TodoController extends Controller
      */
     public function update(Request $request, Todo $todo)
     {
-        //
+        $todo->update($request->only(['title', 'description', 'is_done']));
+        return response()->json($todo);
     }
 
     /**
@@ -60,6 +63,7 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+        return response()->json(['message' => 'deleted successfully']);
     }
 }
